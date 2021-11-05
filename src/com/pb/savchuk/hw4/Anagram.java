@@ -1,6 +1,5 @@
 package com.pb.savchuk.hw4;
 
-import com.pb.savchuk.hw3.Array;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -17,9 +16,11 @@ public class Anagram {
         char[] c2 = s2.toCharArray();
         Arrays.sort(c1);
         Arrays.sort(c2);
+        //return Arrays.equals(c1, c2); сравниваем массивы
         String sc1 = new String(c1);
         String sc2 = new String(c2);
         return sc1.equals(sc2);
+        // или создаем новые строковые обьекти и сравниваем их
     }
 
     public static void main(String[] args) {
