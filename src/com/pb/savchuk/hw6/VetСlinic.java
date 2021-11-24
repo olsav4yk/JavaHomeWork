@@ -1,6 +1,7 @@
 package com.pb.savchuk.hw6;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 import static com.pb.savchuk.hw6.Veterinarian.treatAnimal;
 
@@ -20,10 +21,12 @@ public class VetСlinic {
         Animal[] animals = new Animal[]{dog, cat, horse};
         for (Animal c: animals){
 
-            treatAnimal(c);
+            treatAnimal (c);
         }
         Class clazz = Class.forName("com.pb.savchuk.hw6.Veterinarian");
         Constructor constr = clazz.getConstructor(new Class[] {String.class});
-        Object obj = constr.newInstance("");
+        Object obj = constr.newInstance("Ibolit");
+
+
     }
 }

@@ -4,7 +4,10 @@ package com.pb.savchuk.hw6;
 
 public class Veterinarian {
 
-    public  Veterinarian (String name){
+
+
+
+        public  Veterinarian (String name){
 
     }
 

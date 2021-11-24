@@ -32,10 +32,14 @@ public class OnlineShop {
                 System.out.println("Извините, но Ваш логин или пароль не верный");
             } else {
                 System.out.println("Извините, но Ваш логин или пароль не соответствует требованиям");
-
             }
+
+
         } catch (WrongLoginException e){
             e.printStackTrace();
+
+
         }
+
     }
 }
