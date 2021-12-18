@@ -37,7 +37,7 @@ public class PhoneList {
         //  Блок управления телефонной книгой
         while (exit) {
 
-            Scanner s = new Scanner(System.in);
+            Scanner inputScan = new Scanner(System.in);
             Scanner s1 = new Scanner(System.in);
             Scanner s2 = new Scanner(System.in);
 
@@ -49,7 +49,8 @@ public class PhoneList {
             System.out.println("6. Запись телефонной книги в файл");
             System.out.println("7. Загрузка телефонной книги из файла");
             System.out.println("8. Выход из программы");
-            int input = s.nextInt();
+            int input = inputScan.nextInt();
+
 
             // Добавляем контакт
             if (input == 1) {
@@ -57,27 +58,30 @@ public class PhoneList {
                 String setName = s1.nextLine();
                 System.out.println("Введите дату рождения: year-mm-dd");
                 LocalDate t;
-                t = LocalDate.parse(s1.next());
+                String str1 = s1.nextLine();
+                t = LocalDate.parse(str1);
                 System.out.println("Введите номер телефона");
                 List<String> phoneList = new ArrayList<>();
-                phoneList.add(s2.nextLine());
+                String setPhone = s1.nextLine();
+                phoneList.add(setPhone);
 
                 // Создаем списак телефонов
                 boolean exitForPhone = true;
                 while (exitForPhone) {
+
                     System.out.println("1. Добавить дополнительный номер телефона");
                     System.out.println("2. Продолжить");
-                    int input1 = s.nextInt();
+                    int input1 = inputScan.nextInt();
+
                     if (input1 == 1) {
                         System.out.println("Введите дополнительный номер телефона");
-                        phoneList.add(s.nextLine());
+                        String input11 = s1.nextLine();
+                        phoneList.add(input11);
                     }
-                    else if (input1 == 2) {
+                    if (input1 == 2) {
                         exitForPhone = false;
                     }
-                    else {
-                        System.out.println("Ошибочный переметр");
-                    }
+
                 }
                 System.out.println("Введите адрес");
                 String setAddress = s1.nextLine();
@@ -86,14 +90,14 @@ public class PhoneList {
             }
 
             // Удаление контакта по по ФИО
-            if (input == 2) {
+            else if (input == 2) {
                 Scanner s4 = new Scanner(System.in);
                   System.out.println("Введите ФИО");
                   String str1 = s4.nextLine();
                   int size = list.size();
                   list.removeIf(p -> str1.equals(p.getName()));
-                  if (size< list.size()) {
-                      System.out.println("Контакт успешно удален");
+                  if (list.size()< size) {
+                      System.out.println("Контакт успешно удален\n");
                   }
             }
 
@@ -101,16 +105,10 @@ public class PhoneList {
             else if (input == 3) {
                 Scanner s3 = new Scanner(System.in);
                 System.out.println("Введите ФИО");
-                list.forEach(new Consumer<Pers>() {
-                    @Override
-                    public void accept(Pers p) {
-
-                        if (p.getName().equals(s3.nextLine())){
-                            System.out.println("Контакт найден: ");
-                            System.out.println(p);
-                        } else {
-                            System.out.println("В телефонной книге нет данного контакта");
-                        }
+                String ss3 = s3.nextLine();
+                list.forEach(p -> {
+                    if (p.getName().equals(ss3)) {
+                        System.out.println(p);
                     }
                 });
             }
@@ -119,7 +117,7 @@ public class PhoneList {
             else if (input == 4) {
                     System.out.println("1. Сортировать по ФИО");
                     System.out.println("2. Сортировать по дате заполнения");
-                    int input2 = s.nextInt();
+                    int input2 = inputScan.nextInt();
                     if (input2 == 1) {
                         list.sort(Comparator.comparing(p -> p.getName()));
                         System.out.println(list);
@@ -129,17 +127,19 @@ public class PhoneList {
                         System.out.println(list);
                     }
                     else {
-                        System.out.println("Ошибочный пареметр");
+                        System.out.println("Ошибочный параметр\n");
                     }
-                }
+            }
 
             // Редактиование телефонной книги по запрашиваемым параметрам
             else if (input == 5) {
                 System.out.println("Введите ФИО редактируемого контакта");
+                String editionName = s2.nextLine();
                 list.forEach(new Consumer<Pers>() {
                     @Override
                     public void accept(Pers p) {
-                        if (p.getName().equals(s2.nextLine())){
+
+                        if (p.getName().equals(editionName)){
                             boolean exitForEdition = true;
                             while (exitForEdition) {
                                 System.out.println("1. Изменить ФИО");
@@ -149,7 +149,7 @@ public class PhoneList {
                                 System.out.println("5. Выйти из редактирования");
                                 int index;
                                 index = list.indexOf(p);
-                                int input3 = s.nextInt();
+                                int input3 = inputScan.nextInt();
 
                                 if (input3 == 1) {
                                     System.out.println("Введите новое ФИО");
@@ -171,16 +171,16 @@ public class PhoneList {
                                     while (exitForPhone) {
                                         System.out.println("1. Добавить дополнительный номер телефона");
                                         System.out.println("2. Продолжить");
-                                        int input4 = s.nextInt();
+                                        int input4 = inputScan.nextInt();
                                         if (input4 == 1) {
                                             System.out.println("Введите дополнительный номер телефона");
-                                            phoneList2.add(s.nextLine());
+                                            phoneList2.add(s1.nextLine());
                                         }
                                         else if (input4 == 2) {
                                             exitForPhone = false;
                                         }
                                         else {
-                                            System.out.println("Ошибочный переметр");
+                                            System.out.println("Ошибочный параметр\n");
                                         }
                                     }
                                     p.setPhoneNumbers(phoneList2);
@@ -197,11 +197,9 @@ public class PhoneList {
                                     exitForEdition = false;
                                 }
                                 else {
-                                    System.out.println("Ошибочный переметр");
+                                    System.out.println("Ошибочный параметр\n");
                                 }
                             }
-                        } else {
-                            System.out.println("В телефонной книге нет данного контакта");
                         }
                     }
                 });
@@ -216,16 +214,7 @@ public class PhoneList {
                 objectOutputStream.close();
                 System.out.println("Контакты успешно записаны в файл!");
             }
-            // Загрузка из файла
-//            else if (input == 7) {
-//                File file1 = Paths.get("src\\com\\pb\\savchuk\\hw11\\person.json").toFile();
-//                FileInputStream fileInputStream = new FileInputStream(file1);
-//                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-//                String persons = (String) objectInputStream.readObject();
-//                List persons2 = mapper.readValue(persons, List.class);
-//                list.addAll(persons2);
-//                System.out.println("Контакты успешно загружены из файла!");
-//            }
+
             else if (input == 7) {
                 File file1 = Paths.get("src\\com\\pb\\savchuk\\hw11\\person.json").toFile();
                 FileInputStream fileInputStream = new FileInputStream(file1);
@@ -233,17 +222,15 @@ public class PhoneList {
                 String persons = (String) objectInputStream.readObject();
                 List<Pers> persons3 = mapper.readValue(persons, new TypeReference<List<Pers>>() {});
                 list.addAll(persons3);
-                System.out.println("Контакты успешно загружены из файла!");
+                System.out.println("Контакты успешно загружены из файла!\n");
             }
             // Выход из меню
             else if (input == 8) {
                 exit = false;
             }
             else {
-                System.out.println("Ошибочный переметр");
+                System.out.println("Ошибочный параметр\n");
             }
-
-            System.out.println(list);
         }
     }
 }
